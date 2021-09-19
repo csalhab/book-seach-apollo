@@ -8,7 +8,7 @@ This homework/app is a fully functional Google Books API search engine built wit
 
 This app is released and available publically via a deployment to Heroku. Heroku has been setup to automatically get a new build whenever code is pushed up to this github repo's main branch, and deploy updates automatically too.
 
-[You may find the deployed to Heroku app here:](https://ccs-book-search-apollo.herokuapp.com/)
+[>>> You may find the deployed to Heroku app here <<<](https://ccs-book-search-apollo.herokuapp.com/)
 
 ## Technologies Used
 
