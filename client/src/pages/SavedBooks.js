@@ -47,7 +47,8 @@ const SavedBooks = () => {
   //   getUserData();
   // }, [userDataLength]);
   const { loading, data } = useQuery(GET_ME);
-  const userData = data?.me || [];
+  const userData = data?.me || {};
+  console.log(userData);
 
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
 
@@ -62,7 +63,7 @@ const SavedBooks = () => {
     try {
       //const response = await deleteBook(bookId, token); //removed had been in prior
       //const response = await removeBook(bookId, token); //us trying but not needed
-      const data = await removeBook({
+      const { data } = await removeBook({
         variables: { bookId },
       });
 
@@ -86,7 +87,7 @@ const SavedBooks = () => {
   // if (!userDataLength) {
   //   return <h2>LOADING...</h2>;
   // }
-  if (!loading) {
+  if (loading) {
     return <h2>LOADING...</h2>;
   }
 
@@ -99,14 +100,14 @@ const SavedBooks = () => {
       </Jumbotron>
       <Container>
         <h2>
-          {userData.savedBooks.length
+          {userData.savedBooks?.length
             ? `Viewing ${userData.savedBooks.length} saved ${
                 userData.savedBooks.length === 1 ? "book" : "books"
               }:`
             : "You have no saved books!"}
         </h2>
         <CardColumns>
-          {userData.savedBooks.map((book) => {
+          {userData.savedBooks?.map((book) => {
             return (
               <Card key={book.bookId} border="dark">
                 {book.image ? (
