@@ -11,6 +11,7 @@ import {
 
 import { useMutation } from "@apollo/client";
 import { SAVE_BOOK } from "../utils/mutations";
+import { GET_ME } from "../utils/queries";
 
 import Auth from "../utils/auth";
 //import { saveBook, searchGoogleBooks } from "../utils/API";
@@ -32,7 +33,25 @@ const SearchBooks = () => {
     return () => saveBookIds(savedBookIds);
   });
 
-  const [saveBook, { error }] = useMutation(SAVE_BOOK);
+  const [saveBook, { error }] = useMutation(SAVE_BOOK, {
+    //update(cache, { data: { saveBook } }) {
+    update(cache, data, saveBook) {
+      try {
+        // First we retrieve existing profile data that is stored in the cache under the `QUERY_PROFILES` query
+        // Could potentially not exist yet, so wrap in a try/catch
+        const { me } = cache.readQuery({ query: GET_ME });
+
+        // Then we update the cache by combining existing profile data with the newly created data returned from the mutation
+        cache.writeQuery({
+          query: GET_ME,
+          // If we want new data to show up before or after existing data, adjust the order of this array
+          data: { me: saveBook },
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  });
 
   // create method to search for books and set state on form submit
   const handleFormSubmit = async (event) => {
