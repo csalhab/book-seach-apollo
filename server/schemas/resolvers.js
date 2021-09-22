@@ -9,8 +9,15 @@ const resolvers = {
     },
   },
   Mutation: {
-    removeBook: async (_, args) => {
-      return await User.remove(args.bookId);
+    removeBook: async (_, args, context) => {
+      console.log("removeBook: ---", args.bookId);
+
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $pull: { savedBooks: { bookId: args.bookId } } },
+        { new: true, runValidators: true }
+      );
+      return updatedUser;
     },
     //this is signup
     addUser: async (parent, { username, email, password }) => {
