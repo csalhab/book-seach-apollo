@@ -61,7 +61,7 @@ const SavedBooks = () => {
 
     try {
       //const response = await deleteBook(bookId, token); //removed had been in prior
-      //const response = await removeBook(bookId, token); //us trying
+      //const response = await removeBook(bookId, token); //us trying but not needed
       const data = await removeBook({
         variables: { bookId },
       });
