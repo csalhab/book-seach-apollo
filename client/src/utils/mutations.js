@@ -25,7 +25,6 @@ export const ADD_USER = gql`
           description
           bookId
           image
-          link
           title
         }
       }

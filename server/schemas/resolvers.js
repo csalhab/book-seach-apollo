@@ -30,6 +30,7 @@ const resolvers = {
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
+      console.log("in resolver.js login user: ", user);
 
       if (!user) {
         throw new AuthenticationError("No user with this email found!");

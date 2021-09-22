@@ -23,6 +23,8 @@ const LoginForm = () => {
   };
 
   const handleFormSubmit = async (event) => {
+    console.log("inside LoginForm.js handleFormSubmit function!");
+    console.log("inside LoginForm.js userFormData: ", userFormData);
     event.preventDefault();
 
     // check if form has everything (as per react-bootstrap docs)
